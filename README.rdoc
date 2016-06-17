@@ -1,28 +1,21 @@
 == README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Example:
 
-Things you may want to cover:
+2.2.4 :006 > Product.create(name: 'product1', total: 10, price: 10.2)
+   (0.3ms)  begin transaction
+  SQL (0.9ms)  INSERT INTO "products" ("name", "total", "price") VALUES (?, ?, ?)  [["name", "product1"], ["total", 10], ["price", 10.2]]
+   (0.6ms)  commit transaction
+ => #<Product id: 1, name: "product1", total: 10, price: #<BigDecimal:7fa0fb90cc18,'0.102E2',18(36)>> 
+ 
+ 2.2.4 :003 > Order.create(product: Product.first, total: 4)
+  Product Load (0.2ms)  SELECT  "products".* FROM "products"  ORDER BY "products"."id" ASC LIMIT 1
+   (0.3ms)  begin transaction
+  SQL (1.8ms)  INSERT INTO "orders" ("product_id", "total") VALUES (?, ?)  [["product_id", 1], ["total", 4]]
+  SQL (0.2ms)  UPDATE "products" SET "total" = ? WHERE "products"."id" = ?  [["total", 6], ["id", 1]]
+   (0.6ms)  commit transaction
+ => #<Order id: 1, product_id: 1, total: 4> 
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+2.2.4 :004 > Product.first
+  Product Load (1.5ms)  SELECT  "products".* FROM "products"  ORDER BY "products"."id" ASC LIMIT 1
+ => #<Product id: 1, name: "product1", total: 6, price: #<BigDecimal:7fa0fc17dbb8,'0.102E2',18(36)>> 
