@@ -8,7 +8,7 @@ Example:
    (0.6ms)  commit transaction
  => #<Product id: 1, name: "product1", total: 10, price: #<BigDecimal:7fa0fb90cc18,'0.102E2',18(36)>> 
  
- 2.2.4 :003 > Order.create(product: Product.first, total: 4)
+2.2.4 :003 > Order.create(product: Product.first, total: 4)
   Product Load (0.2ms)  SELECT  "products".* FROM "products"  ORDER BY "products"."id" ASC LIMIT 1
    (0.3ms)  begin transaction
   SQL (1.8ms)  INSERT INTO "orders" ("product_id", "total") VALUES (?, ?)  [["product_id", 1], ["total", 4]]
